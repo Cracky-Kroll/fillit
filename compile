@@ -1,0 +1,4 @@
+#! /bin/sh 
+
+echo compiling
+gcc -Wall -Wextra -Werror check_file_fillit.c move_tet.c libft/libft.a -g

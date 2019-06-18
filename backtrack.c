@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 21:36:17 by ccarole           #+#    #+#             */
-/*   Updated: 2019/06/18 15:15:07 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/06/18 18:13:28 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,30 @@ char	**malloc_map(char ***tab)
 	return (map);
 }
 
+int			check_map(char ***tab)
+{
 
+	if (map[y][x] != '.')
+		x++;
+	if (map[y][x] == '.')
+	{
+		while (tab[i][r][c] == '.')
+			c++;
+		map[y][x] = i + 65;
+		if (tab[i][r][c + 1] != '.' && tab[i][r][c + 1] != '\0' && map[y][x + 1] == '.')
+				map[y][x + 1] = i + 65;
+		if (tab[i][r][c + 2] != '.' && tab[i][r][c + 2] != '\0' && map[y][x + 2] == '.')
+				map[y][x + 2] = i + 65;
+		if (tab[i][r][c + 3] != '.' && tab[i][r][c + 3] != '\0' && map[y][x + 3] == '.')
+				map[y][x + 3] = i + 65;
+		if (tab[i][r][c + 4] != '.' && tab[i][r][c + 4] != '\0' && map[y][x + 4] == '.')
+				map[y][x + 4] = i + 65;
+		if (tab[i][r][c + 1] != '.' && tab[i][r][c] != '\0' && (map[y][x + 1] == '\0' || map[y][x + 1] != '.'))
+				map[y][x] == '.';
+		}
+
+
+}
 
 
 

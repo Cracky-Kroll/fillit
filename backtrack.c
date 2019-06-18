@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 21:36:17 by ccarole           #+#    #+#             */
-/*   Updated: 2019/06/18 18:13:28 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/06/18 18:36:51 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,28 @@ char	**malloc_map(char ***tab)
 		i++;
 	}
 	return (map);
+}
+
+char	**new_map(char ***tab, char **map)
+{
+	int	x;
+	int	y;
+
+	x = 0;
+	y = 0;
+	map = malloc_map(tab);
+	while (map)
+	{
+		x = 0;
+		while (map[y][x] != '\0')
+		{
+			map[y][x] = '.';
+			x++;
+		}
+		y++;
+	}
+	return (map);
+
 }
 
 int			check_map(char ***tab)

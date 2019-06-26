@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 21:36:17 by ccarole           #+#    #+#             */
-/*   Updated: 2019/06/26 20:28:29 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/06/26 21:51:02 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,6 +161,16 @@ char		**backtrac(char ***tab)
 		return (m.map);
 }
 
+int			c_ref(char **tab)
+{
+	int		c;
+
+	c = 0;
+	while (tab[0][c] == '.' && tab[0][c] != '\0')
+		c++;
+	printf("c_ref = %d\n", c);
+	return (c);
+}
 
 char		**check_map(char ***tab)
 {
@@ -175,6 +185,8 @@ char		**check_map(char ***tab)
 	int		r;
 	int		c;
 	int		w;
+//	int		j; // first_r
+	int		l; // c_ref
 
 	x = 0;
 	y = 0;
@@ -185,13 +197,15 @@ char		**check_map(char ***tab)
 	i = 0;
 	r = 0;
 	c = 0;
-	x = 0;
-	y = 0;
 	printf("check_map_debut: i = %d, w = %d, size = %d\n ", i, w, size);
 	while (w > 1)
 	{
 //		r = 0;
-		printf("check_map_debut_while: i = %d, w = %d, size = %d, y = %d, x = %d\n ", i, w, size, y, x);
+	x = 0;
+	y = 0;
+		print_tab(tab[i]);
+		
+//		printf("check_map_debut_while: i = %d, w = %d, size = %d, y = %d, x = %d, first_c(tab[i], (i + 65)) = %d\n ", i, w, size, y, x, first_c(tab[i], (i + 65)));
 /*		while (map[y_start][x_start] != '.' && map[x_start][y_start] != '\0')
 		{
 			printf("check_map_debut_while_2: y_start = %d, x_start =  %d\n ", y_start, x_start);
@@ -205,6 +219,7 @@ char		**check_map(char ***tab)
 		}*/
 		r = 0;
 		printf("check_map_tab[i][r][c]: i = %d, r = %d, c = %d\n ", i, r, c);
+//			printf("check_map_milieu_while_2: y = %d, x =  %d, c = %d, r = %d, i = %d, first_r(tab[i]) = %d, first_c(tab[i])= %d\n ", y, x, c, r, i, first_r(tab[i], (i + 65)), first_c(tab[i]), (i + 65));
 		while (map[y][x] != '.' && map[y][x] != '\0')
 		{
 			x++;
@@ -214,17 +229,36 @@ char		**check_map(char ***tab)
 				y++;
 			}
 		}
-			printf("check_map_milieu_while_2: y = %d, x =  %d, c = %d, r = %d, i = %d, first_r(tab[i]) = %d, first_c(tab[i])= %d\n ", y, x, c, r, i, first_r(tab[i]), first_c(tab[i]));
-			fflush(stdout);
+//			printf("check_map_milieu_while_2: y = %d, x =  %d, c = %d, r = %d, i = %d, first_r(tab[i]) = %d, first_c(tab[i])= %d\n ", y, x, c, r, i, first_r(tab[i]), first_c(tab[i]));
+//			fflush(stdout);
 		while (r < 4 && c < 4)
 		{
 			while (r < 4 && tab[i][r][c] != '\0')
 			{
+//				j = first_r(tab[i], (i + 65));
+				l = c_ref(tab[i]);
 				if ((tab[i][r][c] != '.' && tab[i][r][c] != '\0')
-						&& (map[y + r - first_r(tab[i])][x + c - first_c(tab[i])] == '.'))
+						&& (map[y + r][x + c - l] == '.'))
 				{
-					map[y + r - first_r(tab[i])][x + c - first_c(tab[i])] = i + 65;
+					map[y + r][x + c - l] = i + 65;
 					c++;
+					printf("lalalalalalalala####     c = %d, x = %d, y = %d\n", c, x, y);
+					if (tab[i][r][c] == (i + 65) && map[y + r][x + c - l] != '.')
+					{
+					printf("lalalalalalalala\n");
+						remove_piece(map, i);
+						while (map[y][x] != '.' && map[y][x] != '\0')
+						{
+							x++;
+							if (map[y][x] == '\0' && map[y + 1][0] != '\0')
+						{
+							x = 0;
+							y++;
+						}
+						}
+						r = 0;
+						c = 0;
+					}
 		//			let++;
 				}
 				else if (tab[i][r][c] == '.' && c < 4)
@@ -236,7 +270,7 @@ char		**check_map(char ***tab)
 //					x--;
 					c = 0;
 //					y = 0;
-			printf("check_map_milieu_change de rang: first_c(tab[i]) = %d, y = %d, x =  %d, c = %d, r = %d, i = %d, i + 65 = %c\n ",first_c(tab[i]),  y, x, c, r, i, (i + 65));
+			printf("check_map_milieu_change de rang: c_ref(tab[i]) = %d, y = %d, x =  %d, c = %d, r = %d, i = %d, i + 65 = %c\n ",c_ref(tab[i]),  y, x, c, r, i, (i + 65));
 				}
 			printf("check_map_fin_while_3: y = %d, x =  %d, c = %d, r = %d, i = %d\n ", y, x, c, r, i);
 				print_tab(map);

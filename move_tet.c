@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:57:26 by ccarole           #+#    #+#             */
-/*   Updated: 2019/06/12 21:25:28 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/06/26 21:20:11 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,45 +23,49 @@ int		count_tetris(char ***tab)
 	return (i);
 }
 
-int		first_i(char **tab)
+int		first_c(char **tab, char h)
 {
-	int	i;
-	int	j;
+	int	c;
+	int	r;
 
-	i = 0;
-	j = 0;
-	while (j < 3 && i <= 3)
+	c = 0;
+	r = 0;
+	while ((r < 3) && (c <= 3))
 	{
-		while (tab[j][i] == '.' && j < 3)
-			j++;
-		if (tab[j][i] == '#')
-			return (i);
-		if (j == 3)
+		if (tab[r][c] == '.' && r < 3)
+			r++;
+		if (tab[r][c] == h)
+		{ printf("first_c = %d\n", c);
+			return (c);
+		}
+		if (r == 3)
 		{
-			j = 0;
-			i++;
+			r = 0;
+			c++;
 		}
 	}
 	return (0);
 }
 
-int		first_j(char **tab)
+int		first_r(char **tab, char h)
 {
-	int	i;
-	int	j;
+	int	c;
+	int	r;
 
-	i = 0;
-	j = 0;
-	while (i < 3 && j <= 3)
+	c = 0;
+	r = 0;
+	while ((c < 3) && (r <= 3))
 	{
-		while (tab[j][i] == '.' && i < 3)
-			i++;
-		if (tab[j][i] == '#')
-			return (j);
-		if (i == 3)
+		if (tab[r][c] == '.' && c < 3)
+			c++;
+		if (tab[r][c] == h)
+		{printf("first_r = %d\n", r);
+			return (r);
+		}
+		if (c == 3)
 		{
-			i = 0;
-			j++;
+			c = 0;
+			r++;
 		}
 	}
 	return (0);
@@ -71,31 +75,32 @@ char			***move_tetr_put_letter(char ***tab)
 {
 	t_piece		piec;
 
-	piec.w = 0;
-	while (tab[piec.w])
+	piec.i = 0;
+	while (tab[piec.i])
 	{
-		piec.i = 0;
-		piec.j = 0;
-		piec.x = first_i(tab[piec.w]);
-		piec.y = first_j(tab[piec.w]);
-		while (piec.i < 4 && piec.j < 4)
+		piec.c = 0;
+		piec.r = 0;
+		piec.x = first_c(tab[piec.i], '#');
+		printf("move_tetr_put_letter : first_c = %d\n", piec.x);
+		piec.y = first_r(tab[piec.i], '#');
+		while (piec.c < 4 && piec.r < 4)
 		{
-			if (tab[piec.w][piec.j][piec.i] == '.' && piec.i < 3)
-				piec.i++;
-			if (tab[piec.w][piec.j][piec.i] == '#')
+			if (tab[piec.i][piec.r][piec.c] == '.' && piec.c < 3)
+				piec.c++;
+			if (tab[piec.i][piec.r][piec.c] == '#')
 			{
-				tab[piec.w][piec.j][piec.i] = '.';
-				tab[piec.w][piec.j - piec.y][piec.i - piec.x] = piec.w + 65;
+				tab[piec.i][piec.r][piec.c] = '.';
+				tab[piec.i][piec.r - piec.y][piec.c - piec.x] = piec.i + 65;
 			}
-			if (piec.i == 3 && piec.j < 3)
+			if (piec.c == 3 && piec.r < 3)
 			{
-				piec.i = 0;
-				piec.j++;
+				piec.c = 0;
+				piec.r++;
 			}
 			else
-				piec.i++;
+				piec.c++;
 		}
-		piec.w++;
+		piec.i++;
 	}
 	return (tab);
 }

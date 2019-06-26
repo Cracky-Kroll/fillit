@@ -6,15 +6,13 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 13:54:55 by ccarole           #+#    #+#             */
-/*   Updated: 2019/06/13 23:02:47 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/06/26 20:21:17 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
 
-char	***move_tetr_put_letter(char ***tab);
-int		count_tetris(char ***tab);
 
 void	print_tab(char **tab)
 {
@@ -199,7 +197,7 @@ char		***parsing(int ac, char **av, char ***tab)
 	}
 	return (tab);
 }
-
+/*
 int		main(int ac, char **av)
 {
 	char	***tab;
@@ -218,7 +216,7 @@ int		main(int ac, char **av)
 		printf("test2, i = %d\n", i);
 	}
 	return (0);
-}
+}*/                                   //  main ok, ca fontionne ici
 
 
 /*

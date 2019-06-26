@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 21:36:17 by ccarole           #+#    #+#             */
-/*   Updated: 2019/06/26 23:40:21 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/06/26 23:56:42 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,13 @@ void		remove_piece(char **map, int i)
 	y = 0;
 	while (map != NULL)
 	{
-		if (map[y][x] == (i + 65))
+		printf("y = %d, x = %d, (i + 65) = %c\n", y, x, i + 65);
+		if (map[y][x] == i + 65)
 		{
 			map[y][x] = '.';
 			x++;
 		}
-		else if (map[y][x] != (i + 65) && map[y][x] != '\0')
+		else if (map[y][x] != i + 65 && map[y][x] != '\0')
 			x++;
 		if (map[y][x] == '\0')
 		{
@@ -129,7 +130,7 @@ void		put_in_map(char **tab, char **map)       // pas utilisee non plus(encore)
 		t.r++;
 	}
 }
-/*                                              
+/*                                             //debut d'un autre essai de backtracking 
 char		**backtrac(char ***tab)
 {
 	t_piece		p;

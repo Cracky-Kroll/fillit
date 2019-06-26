@@ -6,14 +6,14 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 21:36:17 by ccarole           #+#    #+#             */
-/*   Updated: 2019/06/26 21:51:02 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/06/26 23:25:58 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>      // a supprime en plus des printf !!!!!!!!!
 
-int			ft_approx_sqrt(int nb)
+int			ft_approx_sqrt(int nb)  //calcul taille map minimum en arrondissant la racine carre
 {
 	int		a;
 
@@ -69,15 +69,15 @@ void		remove_piece(char **map, int i)
 
 	x = 0;
 	y = 0;
-	while (map)
+	while (map != NULL)
 	{
-		if (map[y][x] != (i + 65) && map[y][x] != '\0')
-			x++;
 		if (map[y][x] == (i + 65))
 		{
 			map[y][x] = '.';
 			x++;
 		}
+		else if (map[y][x] != (i + 65) && map[y][x] != '\0')
+			x++;
 		if (map[y][x] == '\0')
 		{
 			y++;
@@ -86,7 +86,7 @@ void		remove_piece(char **map, int i)
 	}
 }
 
-int			can_place(char **tab, char **map)
+int			can_place(char **tab, char **map) //       je ne l'ai pas utilisee elle ne marche pas pour le moment.
 {
 
 	t_piece		t;
@@ -109,7 +109,7 @@ int			can_place(char **tab, char **map)
 	return (0);
 }
 
-void		put_in_map(char **tab, char **map)
+void		put_in_map(char **tab, char **map)       // pas utilisee non plus(encore)
 {
 	t_piece		t;
 	t_map		m;
@@ -129,7 +129,7 @@ void		put_in_map(char **tab, char **map)
 		t.r++;
 	}
 }
-
+/*                                              
 char		**backtrac(char ***tab)
 {
 	t_piece		p;
@@ -159,9 +159,9 @@ char		**backtrac(char ***tab)
 			}
 		}
 		return (m.map);
-}
+}*/
 
-int			c_ref(char **tab)
+int			c_ref(char **tab)        // pour touver premier caractere dans le tableau au raw 0
 {
 	int		c;
 
@@ -172,7 +172,7 @@ int			c_ref(char **tab)
 	return (c);
 }
 
-char		**check_map(char ***tab)
+char		**check_map(char ***tab) // fonction sur laquelle je travail actuelement (il y en a dans tous les sens.) pour eviter de la faire partir dans une boucle infini, et comme la fonction remove_piece ne marche pas je le test avec le fichier 2_tetris avec la condition d'arret (w > 1).. j'essaye de trouver une logique dans l'ordre avant de faire la recurssive, apre normalement on pourra enleve pas mal d'etape. Comme j'ai essaye plusieurs pistes avec des retour en arriere j'ai mis beaucoup de chose en silencieux.
 {
 	char	**map = NULL;    // pr map
 //	int		x_start;
@@ -246,15 +246,17 @@ char		**check_map(char ***tab)
 					if (tab[i][r][c] == (i + 65) && map[y + r][x + c - l] != '.')
 					{
 					printf("lalalalalalalala\n");
+					print_tab(map);
 						remove_piece(map, i);
+						print_tab(map);
 						while (map[y][x] != '.' && map[y][x] != '\0')
 						{
 							x++;
 							if (map[y][x] == '\0' && map[y + 1][0] != '\0')
-						{
-							x = 0;
-							y++;
-						}
+							{
+								x = 0;
+								y++;
+							}
 						}
 						r = 0;
 						c = 0;

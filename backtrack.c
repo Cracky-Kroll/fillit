@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 21:36:17 by ccarole           #+#    #+#             */
-/*   Updated: 2019/06/26 23:25:58 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/06/26 23:40:21 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,7 @@ int			c_ref(char **tab)        // pour touver premier caractere dans le tableau 
 	return (c);
 }
 
-char		**check_map(char ***tab) // fonction sur laquelle je travail actuelement (il y en a dans tous les sens.) pour eviter de la faire partir dans une boucle infini, et comme la fonction remove_piece ne marche pas je le test avec le fichier 2_tetris avec la condition d'arret (w > 1).. j'essaye de trouver une logique dans l'ordre avant de faire la recurssive, apre normalement on pourra enleve pas mal d'etape. Comme j'ai essaye plusieurs pistes avec des retour en arriere j'ai mis beaucoup de chose en silencieux.
+char		**check_map(char ***tab) // fonction sur laquelle je travail actuelement (il y en a dans tous les sens.) pour eviter de la faire partir dans une boucle infini, et comme la fonction remove_piece ne marche pas je le test avec le fichier 2_tetris.. j'essaye de trouver une logique dans l'ordre avant de faire la recurssive, apre normalement on pourra enleve pas mal d'etape. Comme j'ai essaye plusieurs pistes avec des retour en arriere j'ai mis beaucoup de chose en silencieux.
 {
 	char	**map = NULL;    // pr map
 //	int		x_start;
@@ -198,7 +198,7 @@ char		**check_map(char ***tab) // fonction sur laquelle je travail actuelement (
 	r = 0;
 	c = 0;
 	printf("check_map_debut: i = %d, w = %d, size = %d\n ", i, w, size);
-	while (w > 1)
+	while (w > 0)
 	{
 //		r = 0;
 	x = 0;

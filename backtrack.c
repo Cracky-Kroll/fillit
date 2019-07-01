@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 21:36:17 by ccarole           #+#    #+#             */
-/*   Updated: 2019/06/26 23:56:42 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/01 15:21:09 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,15 +66,21 @@ void		remove_piece(char **map, int i)
 {
 	int		x;
 	int		y;
+	int		map_size;
 
+	map_size = ft_strlen(map[0]) - 1;
 	x = 0;
 	y = 0;
-	while (map != NULL)
+	while (y <= map_size)
 	{
 		printf("y = %d, x = %d, (i + 65) = %c\n", y, x, i + 65);
 		if (map[y][x] == i + 65)
 		{
+			print_tab(map);
+			printf("map[y][c] = %c\n", map[y][x]);
 			map[y][x] = '.';
+			printf("map[y][c] = %c\n", map[y][x]);
+			print_tab(map);
 			x++;
 		}
 		else if (map[y][x] != i + 65 && map[y][x] != '\0')
@@ -87,6 +93,15 @@ void		remove_piece(char **map, int i)
 	}
 }
 
+int			can_place(char **map)     // avec liste chainees
+{
+	if (map[tr0 + y][tc0 + x] == '.' && map[tr1 + y][tc1 + x] == '.'
+			&& map[tr2 + y][tc2 + x] == '.' && map[tr3 + y][tc3 + x] == '.')
+		return (0);
+	return (-1);
+}
+
+/*
 int			can_place(char **tab, char **map) //       je ne l'ai pas utilisee elle ne marche pas pour le moment.
 {
 
@@ -129,7 +144,7 @@ void		put_in_map(char **tab, char **map)       // pas utilisee non plus(encore)
 		}
 		t.r++;
 	}
-}
+}*/
 /*                                             //debut d'un autre essai de backtracking 
 char		**backtrac(char ***tab)
 {
@@ -277,6 +292,11 @@ char		**check_map(char ***tab) // fonction sur laquelle je travail actuelement (
 				}
 			printf("check_map_fin_while_3: y = %d, x =  %d, c = %d, r = %d, i = %d\n ", y, x, c, r, i);
 				print_tab(map);
+			}
+			if (map[y][x] == '\0')
+			{
+				x = 0;
+				y++;
 			}
 			if (r == 4)          //veut dire qu'on a pu aller au bout tetrimino et donc le placer
 			{

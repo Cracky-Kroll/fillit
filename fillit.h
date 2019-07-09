@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:06:44 by ccarole           #+#    #+#             */
-/*   Updated: 2019/06/26 21:14:12 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/09 21:26:24 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,10 @@ int				count_tetris(char ***tab);
 int				first_c(char **tab, char h);
 int				first_r(char **tab, char h);
 char			***move_tetr_put_letter(char ***tab);
+int			can_place(char **map, char **tab);
+int			c_ref(char **tab);
+int			len_map(char **map);
+void		put_in_map(char **tab, char **map);
+void		remove_piece(char **map, int i, int  *x, int *y);
 
 #endif

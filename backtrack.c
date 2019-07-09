@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 21:36:17 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/01 15:21:09 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/09 21:43:52 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	**malloc_map(char ***tab, int nb_p)
 	printf("m.y_fin_malloc_map = %d, m.x = %d\n ", m.y, m.x);
 	return (m.map);
 }
-
+/*
 void		remove_piece(char **map, int i)
 {
 	int		x;
@@ -91,15 +91,15 @@ void		remove_piece(char **map, int i)
 			x = 0;
 		}
 	}
-}
-
+}*/
+/*
 int			can_place(char **map)     // avec liste chainees
 {
 	if (map[tr0 + y][tc0 + x] == '.' && map[tr1 + y][tc1 + x] == '.'
 			&& map[tr2 + y][tc2 + x] == '.' && map[tr3 + y][tc3 + x] == '.')
 		return (0);
 	return (-1);
-}
+}*/
 
 /*
 int			can_place(char **tab, char **map) //       je ne l'ai pas utilisee elle ne marche pas pour le moment.
@@ -123,8 +123,8 @@ int			can_place(char **tab, char **map) //       je ne l'ai pas utilisee elle ne
 		t.r++;
 	}
 	return (0);
-}
-
+}*/
+/*
 void		put_in_map(char **tab, char **map)       // pas utilisee non plus(encore)
 {
 	t_piece		t;
@@ -144,39 +144,8 @@ void		put_in_map(char **tab, char **map)       // pas utilisee non plus(encore)
 		}
 		t.r++;
 	}
-}*/
-/*                                             //debut d'un autre essai de backtracking 
-char		**backtrac(char ***tab)
-{
-	t_piece		p;
-	t_map		m;
-	p.w = count_tetris(tab);
-	m.size = count_tetris(tab);
-	m.map = malloc_map(tab, m.size);
-	print_tab(m.map);
-	m.x = 0;
-	m.y = 0;
-	while (count_tetris(tab) > 1)
-	{
-	printf("backtrac: i = %d, w = %d, size = %d\n ", p.i, p.w, m.size);
-		if (can_place(tab[p.i], m.map) == 0)
-		{
-	printf("backtrac2: i = %d, w = %d, size = %d\n ", p.i, p.w, m.size);
-			put_in_map(tab[p.i], m.map);
-			p.i++;
-			m.size--;
-		}
-		else if (can_place(tab[p.i], m.map) == -1 && m.x++ != '\0')
-			m.x++;
-		else if (can_place(tab[p.i], m.map) == -1 && m.x++ == '\0' && m.map[m.y++][0] != '\0')
-			{
-				m.x = 0;
-				m.y++;
-			}
-		}
-		return (m.map);
-}*/
-
+}
+*/
 int			c_ref(char **tab)        // pour touver premier caractere dans le tableau au raw 0
 {
 	int		c;
@@ -188,6 +157,37 @@ int			c_ref(char **tab)        // pour touver premier caractere dans le tableau 
 	return (c);
 }
 
+// test backtracking avec liste chainees
+/*
+char		back()
+{
+	while (count < nb_tetris)
+	{
+		if (can_place(map) == 0)
+		{
+			put_in_map(lst);
+			lst = lst->next;
+			count++;
+			back();
+		}
+		else
+		{
+			x++;
+			if (map[y][x] == '\0' && y < size_map)
+			{
+				x = 0;
+				y++;
+			}
+			if (x == size_map && y == size_map)
+			{
+				remove_piece(lst->previous);
+				count--;
+			}
+		}
+	}
+}
+*/
+/*
 char		**check_map(char ***tab) // fonction sur laquelle je travail actuelement (il y en a dans tous les sens.) pour eviter de la faire partir dans une boucle infini, et comme la fonction remove_piece ne marche pas je le test avec le fichier 2_tetris.. j'essaye de trouver une logique dans l'ordre avant de faire la recurssive, apre normalement on pourra enleve pas mal d'etape. Comme j'ai essaye plusieurs pistes avec des retour en arriere j'ai mis beaucoup de chose en silencieux.
 {
 	char	**map = NULL;    // pr map
@@ -220,22 +220,9 @@ char		**check_map(char ***tab) // fonction sur laquelle je travail actuelement (
 	x = 0;
 	y = 0;
 		print_tab(tab[i]);
-		
-//		printf("check_map_debut_while: i = %d, w = %d, size = %d, y = %d, x = %d, first_c(tab[i], (i + 65)) = %d\n ", i, w, size, y, x, first_c(tab[i], (i + 65)));
-/*		while (map[y_start][x_start] != '.' && map[x_start][y_start] != '\0')
-		{
-			printf("check_map_debut_while_2: y_start = %d, x_start =  %d\n ", y_start, x_start);
-			x_start++;
-			if (map[y_start][x_start] == '\0' && map[y_start + 1][0] != '\0')
-			{
-				x_start = 0;
-				y_start++;
-			}
-			printf("check_map_fin_while_2: y_start = %d, x_start =  %d\n ", y_start, x_start);
-		}*/
 		r = 0;
 		printf("check_map_tab[i][r][c]: i = %d, r = %d, c = %d\n ", i, r, c);
-//			printf("check_map_milieu_while_2: y = %d, x =  %d, c = %d, r = %d, i = %d, first_r(tab[i]) = %d, first_c(tab[i])= %d\n ", y, x, c, r, i, first_r(tab[i], (i + 65)), first_c(tab[i]), (i + 65));
+						printf("strlen map[0] - 1 = %d", (int)ft_strlen(map[0]) - 1);
 		while (map[y][x] != '.' && map[y][x] != '\0')
 		{
 			x++;
@@ -245,60 +232,63 @@ char		**check_map(char ***tab) // fonction sur laquelle je travail actuelement (
 				y++;
 			}
 		}
-//			printf("check_map_milieu_while_2: y = %d, x =  %d, c = %d, r = %d, i = %d, first_r(tab[i]) = %d, first_c(tab[i])= %d\n ", y, x, c, r, i, first_r(tab[i]), first_c(tab[i]));
-//			fflush(stdout);
-		while (r < 4 && c < 4)
+		while (r <= 3 && c < 4)
 		{
 			while (r < 4 && tab[i][r][c] != '\0')
 			{
-//				j = first_r(tab[i], (i + 65));
 				l = c_ref(tab[i]);
-				if ((tab[i][r][c] != '.' && tab[i][r][c] != '\0')
-						&& (map[y + r][x + c - l] == '.'))
+				if ((tab[i][r][c] == i + 65 && (r != 3 && c != 4)
+							&& tab[i][r][c] != '\0') && (map[y + r][x + c - l] == '.'))
 				{
 					map[y + r][x + c - l] = i + 65;
 					c++;
+//					if (c == 4 && r < 3)
+//					{
+//						c = 0;
+//						r++;
+//					}
 					printf("lalalalalalalala####     c = %d, x = %d, y = %d\n", c, x, y);
-					if (tab[i][r][c] == (i + 65) && map[y + r][x + c - l] != '.')
-					{
+				}
+				else if (tab[i][r][c] == (i + 65) && map[y + r][x + c - l] != '.')
+				{
 					printf("lalalalalalalala\n");
 					print_tab(map);
-						remove_piece(map, i);
-						print_tab(map);
-						while (map[y][x] != '.' && map[y][x] != '\0')
-						{
-							x++;
-							if (map[y][x] == '\0' && map[y + 1][0] != '\0')
-							{
-								x = 0;
-								y++;
-							}
-						}
-						r = 0;
-						c = 0;
+					remove_piece(map, i);
+					print_tab(map);
+					x++;
+					if (map[y][x] == '\0' && (y++ < (int)ft_strlen(map[0]) - 1))
+					{
+						printf("strlen map[0] - 1 = %d", (int)ft_strlen(map[0]) - 1);
+						x = 0;
+						y++;
 					}
-		//			let++;
+				//	while (map[y + r][x + c - l] != '.' && map[y + r][x + c - l] != '\0')
+				//	{
+				//		x++;
+				//		if (map[y + r][x + c - l] == '\0' && map[y + 1][0] != '\0')
+				//		{
+				//			x = 0;
+				//			y++;
+				//		}
+				//	}
+					r = 0;
+					c = 0;
 				}
 				else if (tab[i][r][c] == '.' && c < 4)
+				{
 					c++;
 			printf("check_map_milieu_while_3: y = %d, x =  %d, c = %d, r = %d, i = %d\n ", y, x, c, r, i);
-				if (c == 4 && r < 4)
-				{
-					r++;
-//					x--;
-					c = 0;
-//					y = 0;
+					if (c == 4 && r < 3)
+					{
+						r++;
+						c = 0;
 			printf("check_map_milieu_change de rang: c_ref(tab[i]) = %d, y = %d, x =  %d, c = %d, r = %d, i = %d, i + 65 = %c\n ",c_ref(tab[i]),  y, x, c, r, i, (i + 65));
+					}
 				}
 			printf("check_map_fin_while_3: y = %d, x =  %d, c = %d, r = %d, i = %d\n ", y, x, c, r, i);
 				print_tab(map);
 			}
-			if (map[y][x] == '\0')
-			{
-				x = 0;
-				y++;
-			}
-			if (r == 4)          //veut dire qu'on a pu aller au bout tetrimino et donc le placer
+			if (r == 3 && c == 4)          //veut dire qu'on a pu aller au bout tetrimino et donc le placer
 			{
 				w--;
 				i++;
@@ -309,7 +299,7 @@ char		**check_map(char ***tab) // fonction sur laquelle je travail actuelement (
 //		c = 0;
 		printf("sort de boucle\n");
 	}
-/*			if ((tab[i][r][c] != '.' && tab[i][r][c] != '\0') && (map[y][x] == '\0' || map[y][x] != '.')) //pb car i trop grand
+			if ((tab[i][r][c] != '.' && tab[i][r][c] != '\0') && (map[y][x] == '\0' || map[y][x] != '.')) //pb car i trop grand
 			{
 				remove_piece(map, i);
 				if (map[y][x_start + 1] != '\0')
@@ -328,10 +318,95 @@ char		**check_map(char ***tab) // fonction sur laquelle je travail actuelement (
 					size = size + 1;
 					map = malloc_map(tab, size);
 				}
-			}*/
+			}
 	return (map);
 }
+*/
+/*
+char		**check_map(char ***tab) 
+{
+	char	**map = NULL;    // pr map
+	int		x;
+	int		y;
+	int		size;
 
+	int		i;        //pour tab - trouver ou initialiser variables 
+	int		r;
+	int		c;
+	int		w;
+	int		l; // c_ref
+
+	x = 0;
+	y = 0;
+	size = count_tetris(tab);
+	map = malloc_map(tab, size);
+	print_tab(map);
+	i = 0;
+	r = 0;
+	c = 0;
+	printf("check_map_debut: i = %d, w = %d, size = %d\n ", i, w, size);
+	printf("len_map = %d\n", len_map(map));
+	while (w > 0)
+	{
+		x = 0;
+		y = 0;
+		printf("tab[i]\n");
+		print_tab(tab[i]);
+		r = 0;
+		printf("check_map_tab[i][r][c]: i = %d, r = %d, c = %d\n ", i, r, c);
+		if (can_place(map, tab[i]) == -1)
+		{
+			remove_piece(map, i);
+			x++;
+			l = c_ref(tab[i]);
+			if (map[y + r][x + c - l] == '\0' && map[y + 1][0] != '\0')
+			{
+			printf("map avant remove\n");
+			print_tab(map);
+				x = 0;
+				y++;
+			printf("map apres remove\n");
+			print_tab(map);
+			}
+		}
+		else if (can_place(map, tab[i]) == 0)
+		{
+			put_in_map(tab[i], map);
+			printf("map\n");
+			print_tab(map);
+			i++;
+			w--;
+		}
+*/
+
+int		check_map(char ***tab, char **map)
+{
+	while (i < count_tetris(tab))
+	{
+		if (can_place(map, tab[i]) == 0)
+		{
+			x = 0;
+			y = 0;
+			put_in_map(tab[i], map);
+			i++;
+		}
+		else if (x < len_map(map))
+			x++;
+		else if (y < len_map(map))
+		{
+			x = 0;
+			y++;
+		}
+		else
+		{
+			i--;
+			if (i < 0)
+				return (-1);
+			remove_piece(map, i, &x, &y);
+		}
+	}
+	return (0);
+}
 
 int		main(int ac, char **av)
 {
@@ -352,6 +427,12 @@ int		main(int ac, char **av)
 			printf("test2, i = %d\n", i);
 		}
 	printf("test3, i = %d\n", i);
+	if (check_map(tab, map) == -1)
+	{
+		free(map);
+		size++;
+		map = malloc_map(size);
+	}
 	map = check_map(tab);
 	print_tab(map);
 	printf("test4, i = %d\n", i);

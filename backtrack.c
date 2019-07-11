@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 21:36:17 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/11 18:04:35 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/11 19:53:52 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,16 +82,17 @@ int		check_map(char ***tab, char **map)
 	y = 0;
 	while (i < count_tetris(tab))
 	{
+		printf("check_map : debut while i = %d, count_tetris(tab) = %d\n", i, count_tetris(tab));
 		if (can_place(map, tab[i], x, y) == 0)
 		{
 //			x = 0;
 //			y = 0;
 			put_in_map(tab[i], map, x, y);
-			printf("check_map :: i = %d, x = %d, y = %d\n", i, x, y);
-			print_tab(map);
+			i++;
 			x = 0;
 			y = 0;
-			i++;
+			printf("check_map :: i = %d, x = %d, y = %d\n", i, x, y);
+			print_tab(map);
 		}
 		else if (x < len_map(map) - 1)
 			x++;

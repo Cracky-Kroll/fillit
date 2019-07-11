@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 15:16:25 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/09 21:27:13 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/11 18:04:32 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ int			len_map(char **map)
 	return (n);
 }
 
-int			can_place(char **map, char **tab)
+int			can_place(char **map, char **tab, int x, int y)
 {
 	int		l;
 	int		r;
 	int		c;
-	t_map	m;
+//	t_map	m;
 
 	r = 0;
 	l = c_ref(tab);
@@ -39,10 +39,11 @@ int			can_place(char **map, char **tab)
 		c = 0;
 		while (c < 4)
 		{
-			if (tab[r][c] != '.' && map[m.y + r][m.x + c - l] != '.')
+			if (tab[r][c] != '.' && (y + r > len_map(map) - 1 || x + c - l > len_map(map) - 1))
 				return (-1);
-			if (tab[r][c] != '.' && (m.y + r > len_map(map) - 1 || m.x + c - l > len_map(map)))
+			if (tab[r][c] != '.' && map[y + r][x + c - l] != '.')
 				return (-1);
+			printf("can_place :: c = %d, r = %d, m.y = %d, m.x = %d\n", c, r, y, x);
 			c++;
 		}
 		r++;
@@ -50,25 +51,26 @@ int			can_place(char **map, char **tab)
 	return (0);
 }
 
-void		put_in_map(char **tab, char **map)
+void		put_in_map(char **tab, char **map, int x, int y)
 {
 	int		l;
 	int		r;
 	int		c;
 	int		h;   // nb de hachtag poses
-	t_map	m;
+//	t_map	m;
 
 	h = 0;
 	r = 0;
 	l = c_ref(tab);
-	while (r < 4 || h == 4)
+	while (r < 4 || h < 4)
 	{
 		c = 0;
-		while (c < 4 || h == 4)
+		printf("put_in_map :: r = %d, c = %d, h = %d, l = %d, *x = %d, *y = %d, len_map(map) = %d\n", r, c, h, l, x, y, len_map(map));
+		while (c < 4 || h < 4)
 		{
-			if (tab[r][c] != '.' && map[m.y + r][m.x + c - l] == '.')
+			if (tab[r][c] != '.' && tab[r][c] != '\0' && map[y + r][x + c - l] == '.')
 			{
-				map[m.y + r][m.x + c - l] = tab[r][c];
+				map[y + r][x + c - l] = tab[r][c];
 				h++;
 			}
 			c++;
@@ -79,25 +81,40 @@ void		put_in_map(char **tab, char **map)
 
 void		remove_piece(char **map, int i, int  *x, int *y)
 {
+	int		count;
+	int		j;
+	int		z;
 
-	*x = 0;
-	*y = 0;
-	while (*y < len_map(map))
+	j = 0;
+	z = 0;
+	count = 0;
+	while (j < len_map(map))
 	{
-		*x = 0;
-		printf("y = %d, x = %d, (i + 65) = %c\n", *y, *x, i + 65);
-		while (*x < len_map(map))
+		z = 0;
+		printf("j = %d, z = %d, (i + 65) = %c\n", j, z, i + 65);
+		while (z < len_map(map))
 		{
-			if (map[*y][*x] == i + 65)
+			if (map[j][z] == i + 65)
 			{
 					print_tab(map);
-					printf("map[y][c] = %c\n", map[*y][*x]);
-				map[*y][*x] = '.';
-					printf("map[y][c] = %c\n", map[y][x]);
+					printf("map[j][z] = %c\n", map[j][z]);
+				map[j][z] = '.';
+					printf("map[j][z] = %c\n", map[j][z]);
 					print_tab(map);
+				count++;
+				if (count == 1)
+				{
+					if (z + 1 < len_map(map))
+						*x = z + 1;
+					else
+					{
+						*x = 0;
+						*y = j + 1;
+					}
+				}
 			}
-			*x++;
+			z++;
 		}
-		*y++;
+		j++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:57:26 by ccarole           #+#    #+#             */
-/*   Updated: 2019/06/26 21:20:11 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/05 14:31:47 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,66 +104,3 @@ char			***move_tetr_put_letter(char ***tab)
 	}
 	return (tab);
 }
-
-/*tab = move_tetr(tab);*/
-
-/* dans fonction precedente
-
-char	***letter(char ***tab)
-{
-	int w;
-	int raw;
-	int col;
-
-	w = 0;
-	while (tab[w])
-	{
-		raw = 0;
-		col = 0;
-		while (raw < 4 && col < 4)
-		{
-			if (tab[w][raw][col] == '.' && col < 3)
-				col++;
-			if (tab[w][raw][col] == '#')
-				tab[w][raw][col] = w + 65;
-			if (col == 3 && raw < 3)
-			{
-				col = 0;
-				raw++;
-			}
-			else
-				col++;
-		}
-		w++;
-	}
-	return (tab);
-}*/
-
-/*
-char	**malloc_map(char ***tab)
-{
-	int		size;
-	char	**map;
-	int		i;
-	int		nb_p;
-
-	nb_p = count_tetris(tab)
-	size =  ft_sqrt(nb_p * 4);
-	if (!(map = (char**)malloc(sizeof (char*) * size + 1)))
-		return (NULL);
-	i = 0;
-	while (i < size)
-	{
-		if (!(map[i] = (char*)malloc(sizeof(char) * size + 1)))
-			return (NULL);
-		i++;
-	}
-	return (map);
-}
-
-char	**move_t_in_tab(char **tab)
-{
-
-}*/
-
-

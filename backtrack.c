@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 21:36:17 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/11 19:53:52 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/17 12:34:21 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,23 +87,32 @@ int		check_map(char ***tab, char **map)
 		{
 //			x = 0;
 //			y = 0;
+			printf("check_map AVANT PUT:: i = %d, x = %d, y = %d\n", i, x, y);
 			put_in_map(tab[i], map, x, y);
 			i++;
 			x = 0;
 			y = 0;
-			printf("check_map :: i = %d, x = %d, y = %d\n", i, x, y);
-			print_tab(map);
+			printf("check_map : APRES PUT: i = %d, x = %d, y = %d, count_tetris = %d\n", i, x, y, count_tetris(tab));
+//			if (i == count_tetris(tab)){
+//				printf("TEEEEEEEEEEEEESSSSSSTTT");	
+//				return (0);
+//			}
+//			print_tab(map);
 		}
 		else if (x < len_map(map) - 1)
+		{
+			printf("CHECK : ELSE IF ; x = %d < len - 1 = %d\n", x, len_map(map) - 1);
 			x++;
+		}
 		else if (y < len_map(map) - 1)
 		{
+			printf("CHECK : ELSE IF ; y = %d < len - 1 = %d\n", y, len_map(map) - 1);
 			x = 0;
 			y++;
 		}
 		else
 		{
-			printf("CHECK MAP // i = %d\n", i);
+			printf("CHECK MAP : ELSE  // i = %d\n", i);
 			i--;
 			if (i < 0)
 				return (-1);
@@ -117,8 +126,9 @@ int		check_map(char ***tab, char **map)
 
 int		main(int ac, char **av)
 {
+	printf("ENTRE DANS MAIN");
 	char	***tab;
-	int		i = 0;
+//	int		i = 0;
 	char	**map;
 	int		size;
 
@@ -127,71 +137,25 @@ int		main(int ac, char **av)
 	size = ft_approx_sqrt(count_tetris(tab) * 4);
 	printf("MAIN :: size = %d, count_tetris = %d\n", size, count_tetris(tab));
 	map = malloc_map(size);
+	printf("MAIN ; MAP APRES 1ER MALLOC\n");
 	print_tab(map);
 	printf("MAIN :: test1, ac = %d\n", ac);
 	if (tab == NULL)                       // free ici ou plus tot ?
 		printf("Piece invalide :( %s%d\n", __FILE__, __LINE__);
-//	else
-//		while (tab[i])
-//		{
-//			print_tab(tab[i]);
-//			i++;
-//			printf("MAIN :: test2, i = %d\n", i);
-//		}
-	printf("MAIN :: test3, i = %d\n", i);
-	if (check_map(tab, map) == -1)
+	printf("MAIN :: test3, \n");
+	while  (check_map(tab, map) == -1)
 	{
 		printf("MAIN :: REMALLOC MAP\n");
 		free(map);
 		size++;
-		map = malloc_map(size);
+		if (!(map = malloc_map(size)))
+			return (-1);
 	}
-	if (check_map(tab, map) == 0)
-		print_tab(map);
-	printf("main :: test4, i = %d\n", i);
+	printf("MAIN : CHECK MAP = 0 :: print tab(map)\n");
+	print_tab(map);
+	printf("main :: test4, \n");
+//	print_tab(map);
+//	free(tab);
+//	free(map);
 	return (0);
 }
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-   char		**backtrack(char ***tab)
-   {
-   int		nb_p;			// --->> mettre en structure
-   int		round;           // compte nb de fois ou doit agrandir la map
-   int		stop;            //fn s arrete quand toutes les pueces sont posees avec bonne condition
-
-
-   nb_p = count_tetris(tab) + round;    //au debut round = 0, pr pv faire en recursive
-
-   }
-
-   char		form_of_tet(char ***tab)
-   {
-
-   while (tab[i][r][c] == '.')
-   c++;
-   }
-
-   void		put_in_map(char ***tab)
-   {
-   if (tab[i][r][c] == '.')
-   {
-   c++;
-   }
-   if (tab[i][r][c] >= 'A' && tab[i][r][c] <= 'Z')
-   {
-   map[y][x] = tab[i][r][c];
-   x++;
-   }
-   }*/
-

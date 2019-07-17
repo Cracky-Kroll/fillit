@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 15:16:25 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/11 19:27:38 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/17 09:42:42 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void		put_in_map(char **tab, char **map, int x, int y)
 		{
 			if (tab[r][c] != '.' && tab[r][c] != '\0' && map[y + r][x + c - l] == '.')
 			{
-				printf("put in map ::tab [r] = %d, [c] = %d, y = %d, x = %d, l = %d, map [ y + r] = %d, [x + c - l] = %d\n", r, c, y, x, l, (y + r), (x + c - l));
+				printf("put in map ::tab [r] = %d, [c] = %d, y = %d, x = %d, l = %d, map [ y + r] = %d, [x + c - l] = %d, letter = %c\n", r, c, y, x, l, (y + r), (x + c - l), tab[r][c]);
 				map[y + r][x + c - l] = tab[r][c];
 				h++;
 			}

@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 15:16:25 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/20 17:27:41 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/20 19:45:21 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,17 @@ void		put_in_map(char **tab, char **map, int x, int y)
 //	printf("map = put_in_map\n");
 }
 
+void		new_x_y(char **map, int z, int j, int *x, int *y)
+{
+	if (z + 1 < len_map(map))
+		*x = z + 1;
+	else
+	{
+		*x = 0;
+		*y = j + 1;
+	}
+}
+
 void		remove_piece(char **map, int i, int  *x, int *y)
 {
 	int		count;
@@ -87,25 +98,17 @@ void		remove_piece(char **map, int i, int  *x, int *y)
 
 	j = 0;
 	count = 0;
-	while (j < len_map(map))
+	while (j < len_map(map) && count < 4)
 	{
 		z = 0;
-		while (z < len_map(map))
+		while (z < len_map(map) && count < 4)
 		{
 			if (map[j][z] == i + 65)
 			{
 				map[j][z] = '.';
 				count++;
 				if (count == 1)
-				{
-					if (z + 1 < len_map(map))
-						*x = z + 1;
-					else
-					{
-						*x = 0;
-						*y = j + 1;
-					}
-				}
+					new_x_y(map, z, j, &*x, &*y);
 			}
 			z++;
 		}

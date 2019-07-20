@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 13:54:55 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/20 18:30:13 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/20 20:29:54 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,68 +51,72 @@ int		read_one(int fd)
 		return (-1);
 }
 
-int			check_valid_tetris(char *s)
+int			check_valid_tetris(char *s)		//structure t_specif
 {
-	t_specif	spe;
+	int		i;
+	int		pt;
+	int		hash;
+	int		back_n;
 
-	spe.i = 0;
-	spe.pt = 0;
-	spe.hash = 0;
-	spe.back_n = 0;
-	while (s[spe.i])
+	i = 0;
+	pt = 0;
+	hash = 0;
+	back_n = 0;
+	while (s[i])
 	{
-		if (s[spe.i] == '.')
-			spe.pt++;
-		else if (s[spe.i] == '#')
-			spe.hash++;
-		else if (s[spe.i] == '\n' && (spe.i == 4 || spe.i == 9 || spe.i == 14
-					|| spe.i == 19))
-			spe.back_n++;
+		if (s[i] == '.')
+			pt++;
+		else if (s[i] == '#')
+			hash++;
+		else if (s[i] == '\n' && (i == 4 || i == 9 || i == 14 || i == 19))
+			back_n++;
 		else
 			return (-1);
-		spe.i++;
+		i++;
 	}
-	if (spe.pt == 12 && spe.hash == 4 && spe.back_n == 4)
+	if (pt == 12 && hash == 4 && back_n == 4)
 		return (0);
 	return (-1);
 }
 
-int			read_file(int fd, char ***tab)
+int			error_read(char ***tab, char *tmp)
 {
-	int		ret;
-	char	buf[BUFF_SIZE + 1];
-	char	*tmp;
-	int		x;
-	int		ret1;
+	printf("error_read test1, tmp = %s\n", tmp);
+	print_tab(*tab);
+	ft_strdel(&tmp);
+	printf("error_read test2\n");
+	if (tab)
+	{
+		printf("error_read test3\n");
+		free(tab);
+	}
+	return (-1);
+}
 
-	x = 0;
-	ret1 = 1;
-	while ((ret = read(fd, buf, BUFF_SIZE)) > 0 && x < 26 && ret1 == 1)
+int			read_file(int fd, char ***tab)			//structure t_read
+{
+	t_read	r;
+
+	r.x = 0;
+	r.ret1 = 1;
+	while ((r.ret = read(fd, r.buf, BUFF_SIZE)) > 0 && r.x < 26 && r.ret1 == 1)
 	{
-//							printf("ret read = %d\n", ret);
-		if (ret < 20 || ret < 0)
+		if (r.ret < 20 || r.ret < 0)
 			return (-1);
-		buf[ret] = '\0';
-		tmp = ft_strdup(buf);
-		if (check_valid_tetris(tmp) == -1)
+		r.buf[r.ret] = '\0';
+		r.tmp = ft_strdup(r.buf);
+		if (check_valid_tetris(r.tmp) == -1)
+			return (error_read(tab, r.tmp));
+		if(!(tab[r.x] = ft_strsplit(r.tmp, '\n')))
+			return (error_read(tab, r.tmp));
+		r.x++;
+		ft_strdel(&r.tmp);
+		if ((r.ret1 = read_one(fd)) == -1)
 			return (-1);
-		if(!(tab[x] = ft_strsplit(tmp, '\n')))
-		{
-			ft_strdel(&tmp);
-			return (-1);
-		}
-		x++;
-		ft_strdel(&tmp);
-		if ((ret1 = read_one(fd)) == -1)
-			return (-1);
-//                                 		printf("ret read_one = %d\n", ret1);
 	}
-	if (ret != 0 || (ret == 0 && ret1 != 0))
-	{
-		ft_strdel(&**tab);                      //bonne ecriture ??
-		return (-1);
-	}
-	tab[x] = NULL;
+	if (r.ret != 0 || (r.ret == 0 && r.ret1 != 0))
+		return (error_read(tab, r.tmp));
+	tab[r.x] = NULL;
 	return (0);
 }
 // fonction mise dans fichier move_tet

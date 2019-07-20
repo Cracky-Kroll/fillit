@@ -6,14 +6,24 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 17:54:12 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/18 23:18:46 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/20 20:39:28 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
 
+void	print_tab(char **tab)
+{
+	int		i;
 
+	i = 0;
+	while (tab[i])
+	{
+		ft_putendl(tab[i]);
+		i++;
+	}
+}
 
 char			***move_tetr_put_letter(char ***tab)           //malloc lastructure t_piece
 {

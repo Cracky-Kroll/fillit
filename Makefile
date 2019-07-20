@@ -1,49 +1,44 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: ccarole <marvin@42.fr>                     +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2019/05/21 17:02:46 by ccarole           #+#    #+#              #
-#    Updated: 2019/06/13 20:32:58 by ccarole          ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+.PHONY: all clean fclean re
 
+NAME		=	fillit
 
-NAME	=	
-SRCN	=	
-SRCS	=	$(addprefix $(SRCP), $(SRCN))
-CC		=	gcc
-OBJP	=	obj/
-SRCP	=	./
-OBJ		=	$(addprefix $(OBJP), $(SRCN:.c=.o))
-FLAGS	=	-Wall -Wextra -Werror -I includes/
-ARRC	=	ar rc
+CC			=	gcc
+CFLAGS		=	-g3 -Wall -Wextra -Werror -I$(INC_DIR)
 
-all: $(NAME)
+SRC_DIR		=	./src/
+SRCS		=	$(addprefix $(SRC_DIR), $(SRC)
+SRC			=	check_file_fillit.c     \
+				move_tet.c              \
+				parsing.c               \
+				ptt_fn_back.c           \
+				backtrack.c             \
+				main_fillit.c
 
-$(NAME): $(LIB) //$(OBJP) $(OBJ)
-//	$(ARRC) $(NAME) $(OBJ)
-//	ranlib $(NAME)
+OBJ_DIR		=	./obj/
+OBJS		=	$(addprefix $(OBJ_DIR), $(OBJ))
+OBJ			=	$(SRC:.c=.o)
 
-//$(OBJP):
-//	mkdir $(OBJP)
+INC_DIR     =	./include/
+INCS        =	$(addprefix $(INC_DIR), $(INC))
+INC         =	fillit.h
 
-//$(OBJP)%.o : $(SRCP)%.c
-//	$(CC) $(FLAGS) -o $@ -c $<
+all:			$(NAME)
 
-$(LIB):
-	make -C libft re
+$(NAME):        $(OBJ_DIR) $(OBJS)
+				@make -C libft/
+				$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L libft/ -lft
 
+$(OBJ_DIR)%.o:  $(SRC_DIR)%.c $(INCS)
+		    	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJ_DIR):
+		    	@mkdir -p $(OBJ_DIR)
 clean:
-	make -C libft clean
+				@make clean -C libft/
+	    		@rm -f $(OBJS)
+	    		@rm -rf $(OBJ_DIR)
 
-fclean: clean
-	rm -rf $(NAME)
-	make -C libft fclean
+fclean: 		clean
+				@make fclean -C libft/
+		    	@rm -f $(NAME)
 
-re: fclean all
-
-test:
-	gcc -g main.c && ./a.out
+re:				fclean all

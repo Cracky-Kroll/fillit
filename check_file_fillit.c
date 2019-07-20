@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 13:54:55 by ccarole           #+#    #+#             */
-/*   Updated: 2019/06/26 20:21:17 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/20 18:30:13 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ int			check_valid_tetris(char *s)
 			return (-1);
 		spe.i++;
 	}
-	printf("pt = %d, hash = %d, back_n = %d\n", spe.pt, spe.hash, spe.back_n);
 	if (spe.pt == 12 && spe.hash == 4 && spe.back_n == 4)
 		return (0);
 	return (-1);
@@ -90,7 +89,7 @@ int			read_file(int fd, char ***tab)
 	ret1 = 1;
 	while ((ret = read(fd, buf, BUFF_SIZE)) > 0 && x < 26 && ret1 == 1)
 	{
-		printf("ret read = %d\n", ret);
+//							printf("ret read = %d\n", ret);
 		if (ret < 20 || ret < 0)
 			return (-1);
 		buf[ret] = '\0';
@@ -102,14 +101,11 @@ int			read_file(int fd, char ***tab)
 			ft_strdel(&tmp);
 			return (-1);
 		}
-		print_tab(tab[x]);
 		x++;
 		ft_strdel(&tmp);
 		if ((ret1 = read_one(fd)) == -1)
 			return (-1);
-		printf("ret read_one = %d\n", ret1);
-		//		if (ret == 0)
-		//			break ;
+//                                 		printf("ret read_one = %d\n", ret1);
 	}
 	if (ret != 0 || (ret == 0 && ret1 != 0))
 	{
@@ -118,9 +114,9 @@ int			read_file(int fd, char ***tab)
 	}
 	tab[x] = NULL;
 	return (0);
-	// a terme free avant de return -1
 }
-
+// fonction mise dans fichier move_tet
+/*
 int		check_valid_form(char **tab)
 {
 	t_form	fom;
@@ -156,8 +152,9 @@ int		check_valid_form(char **tab)
 			fom.col++;
 	}
 	return (-1);
-}
-
+}*/
+// fonction dans fichier main_fillit.c: 
+/*
 char		***parsing(int ac, char **av, char ***tab)
 {
 	int		fd;
@@ -173,13 +170,11 @@ char		***parsing(int ac, char **av, char ***tab)
 			while (tab[i])
 			{
 				if (check_valid_form(tab[i]) == 0)// && i < count_tetris(*tab))
-				{
-				print_tab(tab[i]);
-					printf("suis la %d\n", __LINE__);
-					fflush(stdout);
+//				{
+//				print_tab(tab[i]);
 					i++;
-					printf("i = %d\n", i);
-				}
+//					printf("i = %d\n", i);
+//				}
 				else
 				{
 					ft_strdel(&**tab);
@@ -196,7 +191,7 @@ char		***parsing(int ac, char **av, char ***tab)
 		close(fd);
 	}
 	return (tab);
-}
+}*/
 /*
 int		main(int ac, char **av)
 {

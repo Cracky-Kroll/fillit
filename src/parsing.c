@@ -6,16 +6,16 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 17:54:12 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/22 23:07:26 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/28 13:55:18 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 #include <stdio.h>
 
-void	print_tab(char **tab)
+void			print_tab(char **tab)
 {
-	int		i;
+	int			i;
 
 	i = 0;
 	while (tab[i])
@@ -25,7 +25,7 @@ void	print_tab(char **tab)
 	}
 }
 
-char			***move_tetr_put_letter(char ***tab)           //malloc lastructure t_piece
+char			***move_tetr_put_letter(char ***tab)
 {
 	t_piece		piec;
 
@@ -54,32 +54,29 @@ char			***move_tetr_put_letter(char ***tab)           //malloc lastructure t_pie
 	return (tab);
 }
 
-char		***parsing(int ac, char **av, char ***tab)
+char			***parsing(char **av, char ***tab)
 {
-	int		fd;
-	int		i;
+	int			fd;
+	int			i;
 
 	i = 0;
-	if (ac == 2)                      //peut gagner place en mettant cette condition dans main
+	if ((fd = open(av[1], O_RDONLY)) == -1)
+		handle_error(tab, NULL);
+	if (!(tab = init_big_tab(tab)))
+		return (NULL);
+	if (read_file(fd, tab) == 0)
 	{
-		if ((fd = open(av[1], O_RDONLY)) == -1)
-			handle_error(tab, NULL);
-		if (!(tab = init_big_tab(tab)))
-			return (NULL);
-		if (read_file(fd, tab) == 0)
+		while (tab[i])
 		{
-			while (tab[i])
-			{
-				if (check_valid_form(tab[i]) == 0)
-					i++;
-				else
-					return (NULL);
-  			}
-			tab = move_tetr_put_letter(tab);
+			if (check_valid_form(tab[i]) == 0)
+				i++;
+			else
+				return (NULL);
 		}
-		else
-			return (NULL);
-		close(fd);
+		tab = move_tetr_put_letter(tab);
 	}
+	else
+		return (NULL);
+	close(fd);
 	return (tab);
 }

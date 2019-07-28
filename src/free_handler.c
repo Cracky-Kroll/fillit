@@ -6,9 +6,10 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/22 20:47:25 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/22 20:55:33 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/28 12:22:03 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "fillit.h"
 
 void		free_tab(char ***tab)
@@ -48,6 +49,6 @@ void		handle_error(char ***tab, char **map)
 {
 	free_tab(tab);
 	free_map(map);
-	ft_putstr_fd("An error occured.", 2);
+	ft_putstr_fd("An error occured.\n", 2);
 	exit(EXIT_FAILURE);
 }

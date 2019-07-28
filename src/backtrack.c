@@ -6,14 +6,13 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 21:36:17 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/22 22:52:25 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/28 13:53:47 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>      // a supprime en plus des printf !!!!!!!!!
 
-int			ft_approx_sqrt(int nb)  //calcul taille map minimum en arrondissant la racine carre
+int			ft_approx_sqrt(int nb)
 {
 	int		a;
 
@@ -21,10 +20,9 @@ int			ft_approx_sqrt(int nb)  //calcul taille map minimum en arrondissant la rac
 	while (a * a < nb)
 		a++;
 	return (a);
-
 }
 
-char	**malloc_map(int size)			//structure t_map
+char		**malloc_map(int size)
 {
 	int		x;
 	int		y;
@@ -50,7 +48,7 @@ char	**malloc_map(int size)			//structure t_map
 	return (map);
 }
 
-int			c_ref(char **tab)        // pour touver premier caractere dans le tableau au raw 0
+int			c_ref(char **tab)
 {
 	int		c;
 
@@ -60,16 +58,16 @@ int			c_ref(char **tab)        // pour touver premier caractere dans le tableau 
 	return (c);
 }
 
-int		check_map(char ***tab, char **map)
+void		new_x_y_in_check_map(int *x, int *y)
 {
-	int	int_t[3];
-/*	int	i;
-	int	x;
-	int	y;
+	*x = 0;
+	*y = *y + 1;
+}
 
-	i = 0;
-	x = 0;
-	y = 0;*/
+int			check_map(char ***tab, char **map)
+{
+	int		int_t[3];
+
 	ft_memset(int_t, 0, 12);
 	while (int_t[0] < count_tetris(tab))
 	{
@@ -81,11 +79,8 @@ int		check_map(char ***tab, char **map)
 		}
 		else if (int_t[1] < len_map(map) - 1)
 			int_t[1]++;
-		else if (int_t[2] < len_map(map) - 1)// && (int_t[1] = 0))
-		{
-			int_t[1] = 0;
-			int_t[2]++;
-		}
+		else if (int_t[2] < len_map(map) - 1)
+			new_x_y_in_check_map(&int_t[1], &int_t[2]);
 		else
 		{
 			int_t[0]--;
@@ -96,38 +91,3 @@ int		check_map(char ***tab, char **map)
 	}
 	return (0);
 }
-/*								dans fichier main.c
-int		main(int ac, char **av)
-{
-	char	***tab;
-	char	**map;
-	int		size;
-
-	tab = NULL;
-	tab = parsing(ac, av, tab);
-	size = ft_approx_sqrt(count_tetris(tab) * 4);
-	printf("MAIN :: size = %d, count_tetris = %d\n", size, count_tetris(tab));
-	map = malloc_map(size);
-	printf("MAIN ; MAP APRES 1ER MALLOC\n");
-	print_tab(map);
-	printf("MAIN :: test1, ac = %d\n", ac);
-	//faire fonction d'erreur
-	if (tab == NULL)                       // free ici ou plus tot ?
-		printf("Piece invalide :( %s%d\n", __FILE__, __LINE__);
-	printf("MAIN :: test3, \n");
-	while  (check_map(tab, map) == -1)
-	{
-		printf("MAIN :: REMALLOC MAP\n");
-		free(map);
-		size++;
-		if (!(map = malloc_map(size)))
-			return (-1);
-	}
-	printf("MAIN : CHECK MAP = 0 :: print tab(map)\n");
-	print_tab(map);
-	printf("main :: test4, \n");
-//	print_tab(map);
-//	free(tab);
-//	free(map);
-	return (0);
-}*/

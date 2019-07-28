@@ -6,16 +6,15 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:57:26 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/22 22:56:28 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/28 12:30:53 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>
 
-int		ft_count_connex(char **tab, int *col, int *raw)
+int			ft_count_connex(char **tab, int *col, int *raw)
 {
-	int	connex;
+	int		connex;
 
 	connex = 0;
 	if (*col > 0 && tab[*raw][*col - 1] == '#')
@@ -27,14 +26,13 @@ int		ft_count_connex(char **tab, int *col, int *raw)
 	if (*raw < 3 && tab[*raw + 1][*col] == '#')
 		connex++;
 	return (connex);
-
 }
 
-int		check_valid_form(char **tab) 
+int			check_valid_form(char **tab)
 {
-	int	raw;
-	int	col;
-	int	connex;
+	int		raw;
+	int		col;
+	int		connex;
 
 	raw = 0;
 	connex = 0;
@@ -58,7 +56,7 @@ int		check_valid_form(char **tab)
 	return (-1);
 }
 
-int		count_tetris(char ***tab)
+int			count_tetris(char ***tab)
 {
 	int		i;
 
@@ -71,10 +69,10 @@ int		count_tetris(char ***tab)
 	return (i);
 }
 
-int		first_c(char **tab, char h)
+int			first_c(char **tab, char h)
 {
-	int	c;
-	int	r;
+	int		c;
+	int		r;
 
 	c = 0;
 	r = 0;
@@ -93,10 +91,10 @@ int		first_c(char **tab, char h)
 	return (0);
 }
 
-int		first_r(char **tab, char h)
+int			first_r(char **tab, char h)
 {
-	int	c;
-	int	r;
+	int		c;
+	int		r;
 
 	c = 0;
 	r = 0;

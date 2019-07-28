@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 15:16:08 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/22 23:04:22 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/28 13:31:48 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,37 +32,13 @@ char		**remalloc_map(char **map, int size)
 	if (!(map = malloc_map(size)))
 		return (NULL);
 	return (map);
-
 }
 
 void		execute_final(char ***tab, char **map)
 {
-	int		i;
-	int		j;
-	int		k;
-
-	i = 0;
-	k = 0;
 	print_tab(map);
-	while (tab && tab[i])
-	{
-		j = 0;
-		while (tab[i][j])
-		{
-			ft_strdel(&tab[i][j]);
-			j++;
-		}
-		free(tab[i]);
-		i++;
-	}
-	(tab) ? free(tab) : 0;
-	k = 0;
-	while (map && map[k])
-	{
-		ft_strdel(&map[k]);
-		k++;
-	}
-	(map) ? free(map) : 0;
+	free_tab(tab);
+	free_map(map);
 }
 
 int			main(int ac, char **av)
@@ -72,20 +48,24 @@ int			main(int ac, char **av)
 	int		size;
 
 	map = NULL;
-	tab = parsing(ac, av, NULL);
+	tab = NULL;
 	size = ft_approx_sqrt(count_tetris(tab) * 4);
-	if (ac != 2 || tab == NULL)
+	if (ac != 2)
+	{
+		ft_putstr_fd("Usage: use at least one file and just one\n", 1);
+		return (0);
+	}
+	tab = parsing(av, tab);
+	if (tab == NULL)
 	{
 		return_error(tab, map);
 		return (0);
 	}
 	if (!(map = malloc_map(size)))
-		return (-1);
-	while  (check_map(tab, map) == -1)
+		handle_error(tab, map);
+	while (check_map(tab, map) == -1)
 		if (!(map = remalloc_map(map, ++size)))
-			return (-1);;
-	print_tab(map);
-	free_tab(tab);
-	free_map(map);
+			handle_error(tab, map);
+	execute_final(tab, map);
 	return (0);
 }

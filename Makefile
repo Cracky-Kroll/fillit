@@ -6,12 +6,13 @@ CC			=	gcc
 CFLAGS		=	-g3 -Wall -Wextra -Werror -I$(INC_DIR)
 
 SRC_DIR		=	./src/
-SRCS		=	$(addprefix $(SRC_DIR), $(SRC)
+SRCS		=	$(addprefix $(SRC_DIR), $(SRC))
 SRC			=	check_file_fillit.c     \
 				move_tet.c              \
 				parsing.c               \
 				ptt_fn_back.c           \
 				backtrack.c             \
+				free_handler.c			\
 				main_fillit.c
 
 OBJ_DIR		=	./obj/

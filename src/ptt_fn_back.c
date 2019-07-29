@@ -6,12 +6,11 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 15:16:25 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/29 17:57:44 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/29 19:53:52 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>
 
 int			can_place(char **map, char **tab, int x, int y)
 {
@@ -95,18 +94,9 @@ void		remove_piece(char **map, int i, int *x, int *y)
 				map[j][z] = '.';
 				count++;
 				if (count == 1 && z + 1 < len_map(map))
-				{
-//					printf("REMOVE 1 avant :count = %d, *x = %d, *y = %d, z = %d, z+1 = %d, j = %d, j + 1 = %d\n", count, *x, *y, z, z + 1, j, j + 1);
-//					*x = z + 1;
 					new_x_y_remove1(j, z, &*x, &*y);
-//					printf("REMOVE 1 apres : *x = %d, *y = %d, z = %d, z+1 = %d, j = %d, j + 1 = %d\n",*x, *y, z, z + 1, j, j + 1);
-				}
 				else if (count == 1 && z + 1 == len_map(map))
-				{
-//					printf("REMOVE 2 avant : count = %d, *x = %d, *y = %d, z = %d, z+1 = %d, j = %d, j + 1 = %d\n", count, *x, *y, z, z + 1, j, j + 1);
 					new_x_y_remove2(j, &*x, &*y);
-//					printf("REMOVE 2 : apres  *x = %d, *y = %d, z = %d, z+1 = %d, j = %d, j + 1 = %d\n", *x, *y, z, z + 1, j, j + 1);
-				}
 			}
 			z++;
 		}

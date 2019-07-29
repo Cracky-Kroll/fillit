@@ -6,12 +6,11 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 13:54:55 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/28 12:28:47 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/29 19:51:12 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>
 
 char		***init_big_tab(char ***tab)
 {

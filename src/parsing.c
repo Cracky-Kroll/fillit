@@ -6,12 +6,11 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 17:54:12 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/29 15:28:43 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/29 19:58:33 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>
 
 void			print_tab(char **tab)
 {

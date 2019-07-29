@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:06:44 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/28 13:51:07 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/29 15:25:55 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int				count_tetris(char ***tab);
 int				first_c(char **tab, char h);
 int				first_r(char **tab, char h);
 void			print_tab(char **tab);									//fn dans parsing.c
+int				len_map(char **map);					//fn dans ptt_fn_back.c
 char			***move_tetr_put_letter(char ***tab);
 char			***parsing(char **av, char ***tab);
 int				ft_approx_sqrt(int nb);							 //fn dans backtrack.c
@@ -58,10 +59,10 @@ char			**malloc_map(int size);
 int				c_ref(char **tab);
 void			new_x_y_in_check_map(int *x, int *y);
 int				check_map(char ***tab, char **map);
-int				len_map(char **map);					//fn dans ptt_fn_back.c
-int				can_place(char **map, char **tab, int x, int y);
+int				can_place(char **map, char **tab, int x, int y);		// fn ds ptt_fn_back.c
 void			put_in_map(char **tab, char **map, int x, int y);
-void			new_x_y(int j, int *x, int *y);
+void			new_x_y_remove1(int j, int z, int *x, int *y);
+void			new_x_y_remove2(int j, int *x, int *y);
 void			remove_piece(char **map, int i, int  *x, int *y);
 void			return_error(char ***tab, char **map);				//fn dans main_fillit.c
 char			**remalloc_map(char **map, int size);

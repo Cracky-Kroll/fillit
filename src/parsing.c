@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 17:54:12 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/28 13:55:18 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/29 15:28:43 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,16 @@ void			print_tab(char **tab)
 		ft_putendl(tab[i]);
 		i++;
 	}
+}
+
+int				len_map(char **map)
+{
+	int			n;
+
+	n = 0;
+	while (map[0][n] != '\0')
+		n++;
+	return (n);
 }
 
 char			***move_tetr_put_letter(char ***tab)

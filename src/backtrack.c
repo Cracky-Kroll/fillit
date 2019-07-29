@@ -6,11 +6,12 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/12 21:36:17 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/28 13:53:47 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/29 17:58:02 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
+#include <stdio.h>
 
 int			ft_approx_sqrt(int nb)
 {
@@ -71,22 +72,35 @@ int			check_map(char ***tab, char **map)
 	ft_memset(int_t, 0, 12);
 	while (int_t[0] < count_tetris(tab))
 	{
+//		printf("CHECK 1: len = %d, i = %d, count_tetris(tab) = %d, x = %d, y = %d\n", len_map(map), int_t[0], count_tetris(tab), int_t[1], int_t[2]);
 		if (can_place(map, tab[int_t[0]], int_t[1], int_t[2]) == 0)
 		{
+//		printf("CHECK - can place : len = %d, i = %d, x = %d, y = %d\n", len_map(map), int_t[0], int_t[1], int_t[2]);
 			put_in_map(tab[int_t[0]++], map, int_t[1], int_t[2]);
 			int_t[1] = 0;
 			int_t[2] = 0;
 		}
 		else if (int_t[1] < len_map(map) - 1)
+		{
+//		printf("CHECK else 1: len = %d, i = %d, x = %d, y = %d\n", len_map(map), int_t[0], int_t[1], int_t[2]);
 			int_t[1]++;
+		}
 		else if (int_t[2] < len_map(map) - 1)
+		{
+//			printf("CHECK else 2: len = %d, i = %d, x = %d, y = %d\n", len_map(map), int_t[0], int_t[1], int_t[2]);
 			new_x_y_in_check_map(&int_t[1], &int_t[2]);
+		}
 		else
 		{
+//		printf("CHECK final : len = %d, i = %d, x = %d, y = %d\n", len_map(map), int_t[0], int_t[1], int_t[2]);
 			int_t[0]--;
 			if (int_t[0] < 0)
 				return (-1);
+//			print_tab(map);
+//			printf("\n");
+//		printf("CHECK final apres : i = %d, x = %d, y = %d\n", int_t[0], int_t[1], int_t[2]);
 			remove_piece(map, int_t[0], &int_t[1], &int_t[2]);
+//		printf("CHECK final apres : i = %d, x = %d, y = %d\n", int_t[0], int_t[1], int_t[2]);
 		}
 	}
 	return (0);

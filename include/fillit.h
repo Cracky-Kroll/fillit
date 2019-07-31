@@ -6,10 +6,9 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 17:06:44 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/29 19:56:34 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/31 20:17:28 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef FILLIT_H
 # define FILLIT_H
@@ -43,7 +42,7 @@ typedef struct	s_piece
 char			***init_big_tab(char ***tab);
 int				read_one(int fd);
 int				check_valid_tetris(char *s);
-int				error_read(char ***tab, char *tmp);
+int				error_read(char *tmp);
 int				read_file(int fd, char ***tab);
 int				ft_count_connex(char **tab, int *col, int *raw);
 int				check_valid_form(char **tab);
@@ -53,6 +52,7 @@ int				first_r(char **tab, char h);
 void			print_tab(char **tab);
 int				len_map(char **map);
 char			***move_tetr_put_letter(char ***tab);
+char			***error_parsing(char ***tab);
 char			***parsing(char **av, char ***tab);
 int				ft_approx_sqrt(int nb);
 char			**malloc_map(int size);
@@ -63,8 +63,7 @@ int				can_place(char **map, char **tab, int x, int y);
 void			put_in_map(char **tab, char **map, int x, int y);
 void			new_x_y_remove1(int j, int z, int *x, int *y);
 void			new_x_y_remove2(int j, int *x, int *y);
-void			remove_piece(char **map, int i, int  *x, int *y);
-void			return_error(char ***tab, char **map);
+void			remove_piece(char **map, int i, int *x, int *y);
 char			**remalloc_map(char **map, int size);
 void			execute_final(char ***tab, char **map);
 int				main(int ac, char **av);

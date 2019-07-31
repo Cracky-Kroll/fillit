@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 15:16:25 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/29 19:53:52 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/31 19:53:51 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			can_place(char **map, char **tab, int x, int y)
 		while (c < 4)
 		{
 			if (tab[r][c] != '.' && (y + r > len_map(map) - 1
-						|| x + c - l > len_map(map) - 1))
+						|| x + c - l > len_map(map) - 1 || x + c - l < 0))
 				return (-1);
 			if (tab[r][c] != '.' && map[y + r][x + c - l] != '.')
 				return (-1);

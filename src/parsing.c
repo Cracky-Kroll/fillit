@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/18 17:54:12 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/29 19:58:33 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/31 20:06:06 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,12 @@ char			***move_tetr_put_letter(char ***tab)
 	return (tab);
 }
 
+char			***error_parsing(char ***tab)
+{
+	free_tab(tab);
+	return (NULL);
+}
+
 char			***parsing(char **av, char ***tab)
 {
 	int			fd;
@@ -80,12 +86,12 @@ char			***parsing(char **av, char ***tab)
 			if (check_valid_form(tab[i]) == 0)
 				i++;
 			else
-				return (NULL);
+				return (error_parsing(tab));
 		}
 		tab = move_tetr_put_letter(tab);
 	}
 	else
-		return (NULL);
+		return (error_parsing(tab));
 	close(fd);
 	return (tab);
 }

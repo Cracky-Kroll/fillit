@@ -6,20 +6,11 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/17 15:16:08 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/29 19:52:25 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/31 20:17:32 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-#include <stdio.h>
-
-void		return_error(char ***tab, char **map)
-{
-	free_map(map);
-	free_tab(tab);
-	ft_putstr("error");
-	ft_putchar('\n');
-}
 
 char		**remalloc_map(char **map, int size)
 {
@@ -54,19 +45,18 @@ int			main(int ac, char **av)
 		ft_putstr_fd("Usage: use at least one file and just one\n", 1);
 		return (0);
 	}
-	tab = parsing(av, tab);
-	size = ft_approx_sqrt(count_tetris(tab) * 4);
-	if (tab == NULL)
+	if (!(tab = parsing(av, tab)))
 	{
-		return_error(tab, map);
+		ft_putstr("error");
+		ft_putchar('\n');
 		return (0);
 	}
+	size = ft_approx_sqrt(count_tetris(tab) * 4);
 	if (!(map = malloc_map(size)))
 		handle_error(tab, map);
 	while (check_map(tab, map) == -1)
 		if (!(map = remalloc_map(map, ++size)))
 			handle_error(tab, map);
-//	printf("size 3  = %d\n", size);
 	execute_final(tab, map);
 	return (0);
 }

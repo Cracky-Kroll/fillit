@@ -6,7 +6,7 @@
 /*   By: ccarole <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/27 13:54:55 by ccarole           #+#    #+#             */
-/*   Updated: 2019/07/29 19:51:12 by ccarole          ###   ########.fr       */
+/*   Updated: 2019/07/31 20:13:41 by ccarole          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,9 @@ int			check_valid_tetris(char *s)
 	return ((pt == 12 && hash == 4 && back_n == 4) ? 0 : -1);
 }
 
-int			error_read(char ***tab, char *tmp)
+int			error_read(char *tmp)
 {
 	ft_strdel(&tmp);
-	free_tab(tab);
 	return (-1);
 }
 
@@ -74,18 +73,19 @@ int			read_file(int fd, char ***tab)
 		if (r.ret < 20)
 			return (-1);
 		r.buf[r.ret] = '\0';
-		r.tmp = ft_strdup(r.buf);
+		if (!(r.tmp = ft_strdup(r.buf)))
+			return (-1);
 		if (check_valid_tetris(r.tmp) == -1)
-			return (error_read(tab, r.tmp));
+			return (error_read(r.tmp));
 		if (!(tab[r.x] = ft_strsplit(r.tmp, '\n')))
-			return (error_read(tab, r.tmp));
+			return (error_read(r.tmp));
 		r.x++;
 		ft_strdel(&r.tmp);
 		if ((r.ret1 = read_one(fd)) == -1)
 			return (-1);
 	}
 	if (r.ret != 0 || (r.ret == 0 && r.ret1 != 0))
-		return (error_read(tab, r.tmp));
+		return (-1);
 	tab[r.x] = NULL;
 	return (0);
 }
